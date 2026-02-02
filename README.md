@@ -5,6 +5,9 @@ This is a static web version of the spreadsheet in this repo. It matches the cor
 - A chart for required assets vs retirement age for the selected spending level.
 - The full retirement age x spending grid with CSV export.
 
+## Philosophy
+CoastFIRE is about reaching a point where your invested assets can grow on their own to fund retirement, even if you stop contributing. The goal is to reach a "coast" number early enough that time and compounding do the heavy lifting, giving you flexibility in how you spend or earn in the years before retirement.
+
 ## Run locally
 Open `index.html` directly in a browser, or serve the folder with any static server.
 
