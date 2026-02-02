@@ -4,9 +4,12 @@
   "private": true,
   "description": "UI tests for CoastFIRE calculator",
   "scripts": {
+    "test": "node tests\\run-tests.js",
+    "test:coverage": "c8 --include logic.js --check-coverage --lines 100 --functions 100 --branches 100 --statements 100 node tests\\run-tests.js",
     "test:ui": "playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.49.1"
+    "@playwright/test": "^1.49.1",
+    "c8": "^9.0.0"
   }
 }

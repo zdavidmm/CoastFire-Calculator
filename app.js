@@ -7,10 +7,18 @@
   spending: 50000,
 };
 
-const SPENDING_MIN = 50000;
-const SPENDING_MAX = 300000;
-const SPENDING_STEP = 1000;
-const ROWS = 70;
+const {
+  SPENDING_MIN,
+  SPENDING_MAX,
+  SPENDING_STEP,
+  ROWS,
+  buildSpendingSeries,
+  buildAgeSeries,
+  requiredAssets,
+  coastingAssets,
+  findCoastAge,
+  clampSpending,
+} = window.CoastLogic;
 
 const els = {
   currentAssets: document.getElementById("currentAssets"),
@@ -60,52 +68,6 @@ function getInputs() {
     inflation: Number(els.inflation.value),
     spending: Number(els.spendInput.value),
   };
-}
-
-function buildSpendingSeries() {
-  const values = [];
-  for (let v = SPENDING_MIN; v <= SPENDING_MAX; v += SPENDING_STEP) {
-    values.push(v);
-  }
-  return values;
-}
-
-function buildAgeSeries(currentAge) {
-  const ages = [];
-  for (let i = 0; i < ROWS; i += 1) {
-    ages.push(currentAge + i);
-  }
-  return ages;
-}
-
-function requiredAssets({ spending, swr, returnRate, inflation, currentAge, retirementAge }) {
-  const growth = 1 + returnRate - inflation;
-  const years = retirementAge - currentAge;
-  if (growth <= 0 || swr <= 0) {
-    return NaN;
-  }
-  return (spending / swr) / Math.pow(growth, years);
-}
-
-function findCoastAge({ currentAssets, spending, swr, returnRate, inflation, currentAge }) {
-  const ages = buildAgeSeries(currentAge);
-  for (const age of ages) {
-    const need = requiredAssets({
-      spending,
-      swr,
-      returnRate,
-      inflation,
-      currentAge,
-      retirementAge: age,
-    });
-    if (!Number.isFinite(need)) {
-      return null;
-    }
-    if (currentAssets >= need) {
-      return age;
-    }
-  }
-  return null;
 }
 
 function buildGrid(inputs) {
@@ -258,14 +220,15 @@ function buildChart(inputs) {
 
 function buildGrowthChart(inputs) {
   const ages = buildAgeSeries(inputs.currentAge);
-  const growth = 1 + inputs.returnRate - inputs.inflation;
-  const coasting = ages.map((age) => {
-    const years = age - inputs.currentAge;
-    if (growth <= 0) {
-      return NaN;
-    }
-    return inputs.currentAssets * Math.pow(growth, years);
-  });
+  const coasting = ages.map((age) =>
+    coastingAssets({
+      currentAssets: inputs.currentAssets,
+      returnRate: inputs.returnRate,
+      inflation: inputs.inflation,
+      currentAge: inputs.currentAge,
+      retirementAge: age,
+    })
+  );
 
   const requiredTarget = inputs.swr > 0 ? inputs.spending / inputs.swr : NaN;
   const required = ages.map(() => requiredTarget);
@@ -363,8 +326,7 @@ function render() {
 }
 
 function syncSpending(value) {
-  const numeric = Number(value);
-  const clamped = Math.min(SPENDING_MAX, Math.max(SPENDING_MIN, numeric));
+  const clamped = clampSpending(value);
   els.spendRange.value = clamped;
   els.spendInput.value = clamped;
 }

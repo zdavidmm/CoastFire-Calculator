@@ -1,5 +1,12 @@
 ﻿const assert = require("assert");
 
+require("../logic");
+const {
+  requiredAssets,
+  coastingAssets,
+  findCoastAge,
+} = global.CoastLogic;
+
 const DEFAULTS = {
   currentAssets: 400000,
   currentAge: 30,
@@ -7,36 +14,6 @@ const DEFAULTS = {
   returnRate: 0.1,
   inflation: 0.04,
 };
-
-function requiredAssets({ spending, swr, returnRate, inflation, currentAge, retirementAge }) {
-  const growth = 1 + returnRate - inflation;
-  const years = retirementAge - currentAge;
-  return (spending / swr) / Math.pow(growth, years);
-}
-
-function coastingAssets({ currentAssets, returnRate, inflation, currentAge, retirementAge }) {
-  const growth = 1 + returnRate - inflation;
-  const years = retirementAge - currentAge;
-  return currentAssets * Math.pow(growth, years);
-}
-
-function coastAgeByRequiredToday({ currentAssets, spending, swr, returnRate, inflation, currentAge }, maxYears = 69) {
-  for (let i = 0; i <= maxYears; i += 1) {
-    const age = currentAge + i;
-    const needToday = requiredAssets({
-      spending,
-      swr,
-      returnRate,
-      inflation,
-      currentAge,
-      retirementAge: age,
-    });
-    if (currentAssets >= needToday) {
-      return age;
-    }
-  }
-  return null;
-}
 
 function coastAgeByFutureValue({ currentAssets, spending, swr, returnRate, inflation, currentAge }, maxYears = 69) {
   const target = spending / swr;
@@ -108,7 +85,7 @@ const coastingNow = coastingAssets({
 nearlyEqual(coastingNow, DEFAULTS.currentAssets, 1e-6);
 
 // Coast age should match whether using required-today or future-value comparison.
-const coastA = coastAgeByRequiredToday({
+const coastA = findCoastAge({
   ...DEFAULTS,
   spending: 50000,
 });
