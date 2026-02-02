@@ -1,0 +1,294 @@
+﻿:root {
+  color-scheme: light;
+  --bg: #f4f1ea;
+  --panel: #ffffff;
+  --ink: #1e1f24;
+  --muted: #5a5f6a;
+  --accent: #ff7a59;
+  --accent-2: #0b7a75;
+  --line: #d8d2c4;
+  --shadow: 0 16px 40px rgba(30, 31, 36, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Source Sans 3", sans-serif;
+  background: radial-gradient(circle at top left, #fff5ea 0%, #f4f1ea 40%, #efe9dd 100%);
+  color: var(--ink);
+}
+
+h1,
+h2 {
+  font-family: "Space Grotesk", sans-serif;
+  margin: 0 0 0.5rem;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 3vw, 3.2rem);
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+p {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+}
+
+.section-note {
+  font-size: 0.95rem;
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.formula {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.95rem;
+  color: #3a3d46;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px 72px;
+}
+
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--accent-2);
+}
+
+.subhead {
+  max-width: 560px;
+}
+
+.hero-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 20px 24px;
+  box-shadow: var(--shadow);
+  min-width: 240px;
+  display: grid;
+  gap: 16px;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+
+.inputs {
+  flex: 1;
+}
+
+.panel .input-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.panel .field {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.panel input[type="number"] {
+  font-size: 1rem;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #fdfbf7;
+}
+
+.panel input[type="range"] {
+  width: 100%;
+}
+
+.panel small {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.spend {
+  margin-top: 24px;
+}
+
+.spend-controls {
+  display: grid;
+  gap: 12px;
+}
+
+.spend-readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.spend-readout input {
+  max-width: 160px;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.warnings {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #b23a2c;
+  min-height: 1.2em;
+}
+
+.chart-panel {
+  padding-bottom: 12px;
+}
+
+.chart-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-primary {
+  background: var(--accent);
+}
+
+.dot-secondary {
+  background: var(--accent-2);
+}
+
+.table-panel {
+  padding-top: 18px;
+}
+
+.table-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.table-actions {
+  display: flex;
+  gap: 12px;
+}
+
+button {
+  border: none;
+  background: var(--accent);
+  color: #1c1c1c;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(0.96);
+}
+
+.table-wrap {
+  max-height: 420px;
+  overflow: auto;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 880px;
+  font-size: 0.85rem;
+}
+
+th,
+td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #ece6d9;
+  text-align: right;
+  white-space: nowrap;
+}
+
+th:first-child,
+td:first-child {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  background: #fffaf2;
+  z-index: 1;
+  border-right: 1px solid #ede3d1;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background: #fff0e0;
+  z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .table-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

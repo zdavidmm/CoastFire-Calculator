@@ -1,0 +1,12 @@
+﻿{
+  "name": "coastcalculator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "UI tests for CoastFIRE calculator",
+  "scripts": {
+    "test:ui": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1"
+  }
+}
